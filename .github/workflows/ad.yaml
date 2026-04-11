@@ -76,7 +76,7 @@ jobs:
           file: ./src/ad/Dockerfile
 
           push: true
-          tags: neamulkabiremon/ad:${{ github.sha }}
+          tags: adamumj/ad:${{ github.sha }}
   
   update-k8s-deployment:
     runs-on: ubuntu-latest
@@ -89,13 +89,13 @@ jobs:
        
       - name: Update Kubernetes Deployment
         run: |
-          sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/checkout:${{ github.sha }}|" kubernetes/ad/deploy.yaml
+          sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/ad:${{ github.sha }}|" kubernetes/ad/deploy.yaml
           cat kubernetes/ad/deploy.yaml
 
       - name: Commit and push updated Kubernetes manifest
         run: |
-           git config --global user.email "neamulkabiremon@gmail.com"
-           git config --global user.name "neamulkabiremon"
+           git config --global user.email "adamumj@gmail.com"
+           git config --global user.name "adamumj"
            git add kubernetes/ad/deploy.yaml
-           git commit -m "[CI]: Update checkout deployment image tag"
+           git commit -m "[CI]: Update ad deployment image tag"
            git push

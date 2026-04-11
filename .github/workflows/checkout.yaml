@@ -78,7 +78,7 @@ jobs:
           file: ./src/checkout/Dockerfile
 
           push: true
-          tags: neamulkabiremon/checkout:${{ github.sha }}
+          tags: adamumj/checkout:${{ github.sha }}
   
   update-k8s-deployment:
     runs-on: ubuntu-latest
@@ -96,8 +96,8 @@ jobs:
 
       - name: Commit and push updated Kubernetes manifest
         run: |
-           git config --global user.email "neamulkabiremon@gmail.com"
-           git config --global user.name "neamulkabiremon"
+           git config --global user.email "adamumj@gmail.com"
+           git config --global user.name "adamumj"
            git add kubernetes/checkout/deploy.yaml
            git commit -m "[CI]: Update checkout deployment image tag"
            git push
