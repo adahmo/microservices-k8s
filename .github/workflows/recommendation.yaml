@@ -1,4 +1,7 @@
 name: recommendation-service-ci
+
+permissions:
+  contents: write
 on:
   pull_request:
     branches: [main]
@@ -81,6 +84,7 @@ jobs:
   update-k8s-deployment:
     runs-on: ubuntu-latest
     needs: build-and-push
+    if: github.event_name == 'push'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -98,5 +102,4 @@ jobs:
            git config --global user.name "adamumj"
            git add kubernetes/recommendation/deploy.yaml
            git commit -m "[CI]: Update recommendation deployment image tag"
-           git push
            git push

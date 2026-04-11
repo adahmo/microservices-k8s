@@ -1,7 +1,14 @@
 # CI for Product Catalog Service
 name: product-catalog-service-ci
 
+permissions:
+  contents: write
+
 on:
+  push:
+    paths:
+      - '.github/workflows/product-catalog-ci.yaml'
+      - 'src/product-catalog/**'
   pull_request:
     branches:
       - main
@@ -72,6 +79,7 @@ jobs:
   update-k8s-deployment:
     runs-on: ubuntu-latest
     needs: build-and-push
+    if: github.event_name == 'push'
 
     steps:
     - name: Checkout code
