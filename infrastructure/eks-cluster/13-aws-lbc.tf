@@ -39,24 +39,23 @@ resource "aws_eks_pod_identity_association" "aws_lbc" {
 resource "helm_release" "aws_lbc" {
   name = "aws-load-balancer-controller"
 
-  repository = "https://aws.github.io/eks-charts"
-  chart      = "aws-load-balancer-controller"
+  chart      = "https://aws.github.io/eks-charts/aws-load-balancer-controller-1.7.2.tgz"
   namespace  = "kube-system"
   version    = "1.7.2"
 
-  set {
-    name  = "clusterName"
-    value = aws_eks_cluster.eks.name
-  }
-
-  set {
-    name  = "serviceAccount.name"
-    value = "aws-load-balancer-controller"
-  }
-  set {
-    name  = "vpcId"
-    value = aws_vpc.main.id
-  }
-
+  set = [
+    {
+      name  = "clusterName"
+      value = aws_eks_cluster.eks.name
+    },
+    {
+      name  = "serviceAccount.name"
+      value = "aws-load-balancer-controller"
+    },
+    {
+      name  = "vpcId"
+      value = aws_vpc.main.id
+    }
+  ]
   depends_on = [helm_release.cluster_autoscaler]
 }

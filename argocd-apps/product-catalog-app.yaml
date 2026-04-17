@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/neamulkabiremon/ultimate-devops-project-demo
+    repoURL: https://github.com/adahmo/CICD-microservices
     targetRevision: HEAD
     path: kubernetes/productcatalog
   destination:
