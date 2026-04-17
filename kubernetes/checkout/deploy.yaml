@@ -31,7 +31,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: checkoutservice
-          image: adamumj/checkout:257011939658a68c06c3ff412f74181981c5341a
+          image: ghcr.io/open-telemetry/demo:1.12.0-checkoutservice
           imagePullPolicy: IfNotPresent
           ports:
             
@@ -73,14 +73,14 @@ spec:
               value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo,service.version=1.12.0
           resources:
             limits:
-              memory: 20Mi
+              memory: 100Mi
           volumeMounts:
       initContainers:
         - command:
           - sh
           - -c
-          - until nc -z -v -w30 opentelemetry-demo-kafka 9092; do echo waiting
+          - until nc -z -v -w30 opentelemetry-demo-kafka.default.svc.cluster.local 9092; do echo waiting
             for kafka; sleep 2; done;
-          image: adamumj/checkout:257011939658a68c06c3ff412f74181981c5341a
+          image: busybox:latest
           name: wait-for-kafka
       volumes:

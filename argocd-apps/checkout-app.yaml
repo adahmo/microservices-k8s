@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/adahmo/CICD-microservices
+    repoURL: https://github.com/adahmo/microservices-k8s.git
     targetRevision: HEAD
     path: kubernetes/checkout
   destination:
