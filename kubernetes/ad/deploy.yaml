@@ -31,7 +31,11 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: adservice
+<<<<<<< HEAD
           image: adamumj/ad:latest
+=======
+          image: adamumj/ad:45e56464b767ef24204ea27c5d48fbe1d362dfb0
+>>>>>>> 6e9cc052cd9ad4dabb17a5eb14967a832af455ae
           imagePullPolicy: IfNotPresent
           ports:
             
