@@ -79,7 +79,7 @@ jobs:
           file: ./src/recommendation/Dockerfile
 
           push: true
-          tags: adamumj/recommendation:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/recommendation:${{ github.sha }}
   
   update-k8s-deployment:
     runs-on: ubuntu-latest

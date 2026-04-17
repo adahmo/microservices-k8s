@@ -1,0 +1,50 @@
+name: k8s-manifest-guard
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'kubernetes/**'
+      - '.github/workflows/**'
+  push:
+    branches: [main]
+    paths:
+      - 'kubernetes/**'
+      - '.github/workflows/**'
+
+jobs:
+  validate-manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Block unresolved merge conflict markers
+        run: |
+          set -e
+          if grep -R -n -E '^(<<<<<<<|=======|>>>>>>>)' kubernetes; then
+            echo 'Found unresolved merge conflict markers in kubernetes manifests.'
+            exit 1
+          fi
+
+      - name: Block mutable latest image tags
+        run: |
+          set -e
+          violations=$(grep -R -n -E '^\s*image:\s*[^#]+:latest\s*$' kubernetes | grep -v 'busybox:latest' || true)
+          if [ -n "$violations" ]; then
+            echo "$violations"
+            echo 'Found mutable :latest image tags in kubernetes manifests. Use immutable tags instead.'
+            exit 1
+          fi
+
+      - name: Ensure deployment manifests contain image fields
+        run: |
+          set -e
+          for f in kubernetes/*/deploy.yaml; do
+            if [ -f "$f" ]; then
+              if ! grep -q '^\s*image:\s*' "$f"; then
+                echo "Missing image field in $f"
+                exit 1
+              fi
+            fi
+          done

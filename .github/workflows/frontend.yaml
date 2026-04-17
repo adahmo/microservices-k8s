@@ -82,7 +82,7 @@ jobs:
           file: ./src/frontend/Dockerfile
 
           push: true
-          tags: adamumj/frontend:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
   
   update-k8s-deployment:
     runs-on: ubuntu-latest

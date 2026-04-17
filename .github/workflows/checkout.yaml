@@ -81,7 +81,7 @@ jobs:
           file: ./src/checkout/Dockerfile
 
           push: true
-          tags: adamumj/checkout:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/checkout:${{ github.sha }}
   
   update-k8s-deployment:
     runs-on: ubuntu-latest
