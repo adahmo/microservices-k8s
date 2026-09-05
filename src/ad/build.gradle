@@ -20,7 +20,7 @@ def opentelemetryVersion = "1.40.0"
 def opentelemetryInstrumentationVersion = "2.6.0"
 def grpcVersion = "1.65.1"
 def jacksonVersion = "2.17.2"
-def protocVersion = "3.25.3"
+def protocVersion = "4.36.1"
 
 tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -64,8 +64,8 @@ dependencies {
     }
 
     // ✅ Properly declared test dependencies
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:6.1.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.1.3'
 }
 
 test {
